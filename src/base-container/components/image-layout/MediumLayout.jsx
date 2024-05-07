@@ -1,5 +1,6 @@
 import React from 'react';
 
+import logo from '@edx/brand/logo-white.svg';
 import { getConfig } from '@edx/frontend-platform';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import { Hyperlink, Image } from '@edx/paragon';
@@ -16,7 +17,7 @@ const MediumLayout = () => {
       style={{ backgroundImage: `url(${getConfig().BANNER_IMAGE_MEDIUM})` }}
     >
       <Hyperlink destination={getConfig().MARKETING_SITE_BASE_URL}>
-        <Image className="company-logo" alt={getConfig().SITE_NAME} src={getConfig().LOGO_WHITE_URL} />
+        <Image className="company-logo" alt={getConfig().SITE_NAME} src={logo} />
       </Hyperlink>
       <div className="ml-5 pb-4 pt-4">
         <h1 className="display-2 banner__heading">
