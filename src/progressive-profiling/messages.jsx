@@ -8,7 +8,7 @@ const messages = defineMessages({
   },
   'progressive.profiling.page.heading': {
     id: 'progressive.profiling.page.heading',
-    defaultMessage: 'A few questions for you will help us get smarter.',
+    defaultMessage: 'A few questions for you will help us tailor your experience.',
     description: 'The page heading for the progressive profiling page.',
   },
   'optional.fields.information.link': {
