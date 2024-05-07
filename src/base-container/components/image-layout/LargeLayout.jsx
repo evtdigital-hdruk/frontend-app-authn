@@ -1,5 +1,6 @@
 import React from 'react';
 
+import logo from '@edx/brand/logo-white.svg';
 import { getConfig } from '@edx/frontend-platform';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import { Hyperlink, Image } from '@openedx/paragon';
@@ -16,7 +17,7 @@ const LargeLayout = () => {
       style={{ backgroundImage: `url(${getConfig().BANNER_IMAGE_LARGE})` }}
     >
       <Hyperlink destination={getConfig().MARKETING_SITE_BASE_URL}>
-        <Image className="company-logo position-absolute" alt={getConfig().SITE_NAME} src={getConfig().LOGO_WHITE_URL} />
+        <Image className="company-logo position-absolute" alt={getConfig().SITE_NAME} src={logo} />
       </Hyperlink>
       <div className="min-vh-100 p-5 d-flex align-items-end">
         <h1 className="display-2 mw-sm mb-3 d-flex flex-column flex-shrink-0 justify-content-center">
