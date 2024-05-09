@@ -32,7 +32,7 @@
     "url": "https://github.com/openedx/frontend-app-authn/issues"
   },
   "dependencies": {
-    "@edx/brand": "npm:@edx/brand-openedx@1.2.0",
+    "@edx/brand": "git+https://git@github.com/evtdigital-hdruk/brand-hdruk.git#hdruk/v0.1.0",
     "@edx/frontend-platform": "^5.5.4",
     "@edx/paragon": "20.46.2",
     "@fortawesome/fontawesome-svg-core": "6.4.2",
@@ -70,7 +70,7 @@
     "universal-cookie": "4.0.4"
   },
   "devDependencies": {
-    "@edx/browserslist-config": "^1.1.1",
+    "@edx/browserslist-config": "^1.2.0",
     "@edx/frontend-build": "12.9.8",
     "@edx/reactifex": "1.1.0",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.8.0",
