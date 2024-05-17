@@ -25,7 +25,7 @@ const LargeLayout = ({ fullName }) => {
             </h1>
             <h2 className="complete-your-profile">
               {formatMessage(messages['complete.your.profile.1'])}
-              <div className="text-accent-a">
+              <div className="text-hdruk-green">
                 {formatMessage(messages['complete.your.profile.2'])}
               </div>
             </h2>
