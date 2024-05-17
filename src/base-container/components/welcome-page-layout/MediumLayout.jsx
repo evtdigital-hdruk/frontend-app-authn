@@ -27,7 +27,7 @@ const MediumLayout = ({ username }) => {
               </h1>
               <h2 className="display-1">
                 {formatMessage(messages['complete.your.profile.1'])}
-                <div className="text-accent-a">
+                <div className="text-hdruk-green">
                   {formatMessage(messages['complete.your.profile.2'])}
                 </div>
               </h2>
