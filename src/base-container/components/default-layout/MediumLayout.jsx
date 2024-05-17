@@ -15,7 +15,7 @@ const MediumLayout = () => {
     <>
       <div className="w-100 medium-screen-top-stripe" />
       <div className="w-100 p-0 mb-3 d-flex">
-        <div className="col-md-10 bg-brand">
+        <div className="col-md-10 bg-primary">
           <Hyperlink destination={getConfig().MARKETING_SITE_BASE_URL}>
             <Image alt={getConfig().SITE_NAME} className="logo" src={logo} />
           </Hyperlink>
@@ -30,7 +30,7 @@ const MediumLayout = () => {
               >
                 <span>
                   {formatMessage(messages['start.learning'])}{' '}
-                  <span className="text-accent-a d-inline-block">
+                  <span className="text-hdruk-green d-inline-block">
                     {formatMessage(messages['with.site.name'], { siteName: getConfig().SITE_NAME })}
                   </span>
                 </span>
