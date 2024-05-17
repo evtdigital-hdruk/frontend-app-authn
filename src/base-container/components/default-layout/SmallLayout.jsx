@@ -12,7 +12,7 @@ const SmallLayout = () => {
   const { formatMessage } = useIntl();
 
   return (
-    <span className="bg-brand w-100">
+    <span className="bg-primary w-100">
       <div className="col-md-12 small-screen-top-stripe" />
       <div>
         <Hyperlink destination={getConfig().MARKETING_SITE_BASE_URL}>
@@ -27,7 +27,7 @@ const SmallLayout = () => {
           >
             <span>
               {formatMessage(messages['start.learning'])}{' '}
-              <span className="text-accent-a d-inline-block">
+              <span className="text-hdruk-green d-inline-block">
                 {formatMessage(messages['with.site.name'], { siteName: getConfig().SITE_NAME })}
               </span>
             </span>

@@ -13,7 +13,7 @@ const LargeLayout = () => {
 
   return (
     <div className="w-50 d-flex">
-      <div className="col-md-9 bg-brand">
+      <div className="col-md-9 bg-primary">
         <Hyperlink destination={getConfig().MARKETING_SITE_BASE_URL}>
           <Image className="logo position-absolute" alt={getConfig().SITE_NAME} src={logo} />
         </Hyperlink>
@@ -26,7 +26,7 @@ const LargeLayout = () => {
             )}
           >
             {formatMessage(messages['start.learning'])}
-            <div className="text-accent-a">
+            <div className="text-hdruk-green">
               {formatMessage(messages['with.site.name'], { siteName: getConfig().SITE_NAME })}
             </div>
           </h1>
