@@ -26,6 +26,7 @@ import { ProgressiveProfiling } from './progressive-profiling';
 import { RecommendationsPage } from './recommendations';
 import { RegistrationPage } from './register';
 import { ResetPasswordPage } from './reset-password';
+import GoogleTagManager from './utils/externalScripts';
 
 import './index.scss';
 
@@ -37,6 +38,7 @@ const MainApp = () => (
       <link rel="shortcut icon" href={getConfig().FAVICON_URL} type="image/x-icon" />
     </Helmet>
     {getConfig().ZENDESK_KEY && <Zendesk />}
+    <GoogleTagManager />
     <Routes>
       <Route path="/" element={<Navigate replace to={updatePathWithQueryParams(REGISTER_PAGE)} />} />
       <Route
