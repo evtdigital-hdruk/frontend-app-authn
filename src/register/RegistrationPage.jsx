@@ -365,7 +365,7 @@ const RegistrationPage = (props) => {
                 id="register-user"
                 name="register-user"
                 type="submit"
-                variant="hdruk-orange"
+                variant="brand"
                 className="register-button mt-4 mb-4"
                 state={submitState}
                 labels={{
