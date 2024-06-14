@@ -231,12 +231,12 @@ const ProgressiveProfiling = (props) => {
         ) : null}
         <Form>
           {formFields}
-          {(getConfig().AUTHN_PROGRESSIVE_PROFILING_SUPPORT_LINK) && (
+          {(getConfig().LMS_BASE_URL) && (
             <span className="pp-page__support-link">
               <Hyperlink
                 isInline
                 variant="muted"
-                destination={getConfig().AUTHN_PROGRESSIVE_PROFILING_SUPPORT_LINK}
+                destination={`${getConfig().LMS_BASE_URL}/tos`}
                 target="_blank"
                 showLaunchIcon={false}
                 onClick={() => (sendTrackEvent('edx.bi.welcome.page.support.link.clicked'))}
