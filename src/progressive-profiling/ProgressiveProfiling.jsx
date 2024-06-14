@@ -180,7 +180,9 @@ const ProgressiveProfiling = (props) => {
     }
   };
 
-  const formFields = Object.keys(formFieldData.fields).map((fieldName) => {
+  const registrationFieldOrder = getConfig().REGISTRATION_FIELD_ORDER;
+  const orderedFieldNames = registrationFieldOrder.filter(fieldName => Object.hasOwn(formFieldData.fields, fieldName));
+  const formFields = orderedFieldNames.map((fieldName) => {
     const fieldData = formFieldData.fields[fieldName];
     return (
       <span key={fieldData.name}>
