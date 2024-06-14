@@ -37,7 +37,7 @@ const FormFieldRenderer = (props) => {
             onBlur={handleOnBlur}
             onFocus={handleFocus}
           >
-            <option key="default" value="">{fieldData.label}</option>
+            <option key="default" value="">-</option>
             {fieldData.options.map(option => (
               <option className="data-hj-suppress" key={option[0]} value={option[0]}>{option[1]}</option>
             ))}
