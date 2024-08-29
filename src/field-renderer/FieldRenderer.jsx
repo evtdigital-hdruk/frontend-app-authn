@@ -1,8 +1,12 @@
 import React from 'react';
 
-import { Form, Icon } from '@openedx/paragon';
+import { getConfig } from '@edx/frontend-platform';
+import { useIntl } from '@edx/frontend-platform/i18n';
+import { Form, Hyperlink, Icon } from '@openedx/paragon';
 import { ExpandMore } from '@openedx/paragon/icons';
 import PropTypes from 'prop-types';
+
+import messages from './messages';
 
 const FormFieldRenderer = (props) => {
   let formField = null;
@@ -17,6 +21,8 @@ const FormFieldRenderer = (props) => {
   const handleOnBlur = (e) => {
     if (props.handleBlur) { props.handleBlur(e); }
   };
+
+  const { formatMessage } = useIntl();
 
   switch (fieldData.type) {
     case 'select': {
@@ -121,6 +127,67 @@ const FormFieldRenderer = (props) => {
       );
       break;
     }
+    case 'multiplechoice': {
+      const selectedValues = Array.isArray(value) ? value : [];
+      formField = (
+        <Form.Group isInvalid={!!(isRequired && errorMessage)}>
+          <div className="pp-page__heading text-primary">{fieldData.label}</div>
+          {fieldData.name === 'marketing_preferences'
+            && (
+              <p className="mb-2">
+                {formatMessage(messages.marketingDetails)}
+              </p>
+            )}
+          <Form.CheckboxSet
+            name={fieldData.name}
+            onChange={(e) => onChangeHandler(e)}
+            value={selectedValues}
+            aria-invalid={isRequired && Boolean(errorMessage)}
+            onBlur={handleOnBlur}
+            onFocus={handleFocus}
+          >
+            {fieldData.options.map(option => (
+              <Form.Checkbox
+                key={option[0]}
+                className={className}
+                id={option[0]}
+                value={option[0]}
+              >
+                {option[1]}
+              </Form.Checkbox>
+            ))}
+          </Form.CheckboxSet>
+          {isRequired && errorMessage && (
+            <Form.Control.Feedback id={`${fieldData.name}-error`} type="invalid" className="form-text-size" hasIcon={false}>
+              {errorMessage}
+            </Form.Control.Feedback>
+          )}
+          {fieldData.name === 'marketing_preferences'
+            && (
+              <p className="mt-2 x-small">
+                {
+                  formatMessage(
+                    messages.marketingDisclaimer,
+                    {
+                      privacyPolicyLink: (
+                        <Hyperlink
+                          isInline
+                          variant="muted"
+                          destination={`${getConfig().LMS_BASE_URL}/privacy`}
+                          target="_blank"
+                          showLaunchIcon={false}
+                        >
+                          {formatMessage(messages.marketingPrivacyPolicyLink)}
+                        </Hyperlink>
+                      ),
+                    })
+                }
+              </p>
+            )}
+        </Form.Group>
+      );
+      break;
+    }
     default:
       break;
   }
@@ -152,6 +219,7 @@ FormFieldRenderer.propTypes = {
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.bool,
+    PropTypes.arrayOf(PropTypes.string),
   ]),
 };
 

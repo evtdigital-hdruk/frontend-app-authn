@@ -175,7 +175,25 @@ const ProgressiveProfiling = (props) => {
   };
 
   const onChangeHandler = (e) => {
-    if (e.target.type === 'checkbox') {
+    if (e.target.name === 'marketing_preferences') {
+      setValues(prevValues => {
+        const prevMarketingPreferences = prevValues.marketing_preferences || [];
+        if (e.target.checked) {
+          if (!prevMarketingPreferences.includes(e.target.value)) {
+            return {
+              ...prevValues,
+              marketing_preferences: [...prevMarketingPreferences, e.target.value],
+            };
+          }
+        } else {
+          return {
+            ...prevValues,
+            marketing_preferences: prevMarketingPreferences.filter(pref => pref !== e.target.value),
+          };
+        }
+        return prevValues;
+      });
+    } else if (e.target.type === 'checkbox') {
       setValues({ ...values, [e.target.name]: e.target.checked });
     } else {
       setValues({ ...values, [e.target.name]: e.target.value });
