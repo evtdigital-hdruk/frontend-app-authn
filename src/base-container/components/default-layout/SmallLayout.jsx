@@ -1,5 +1,6 @@
 import React from 'react';
 
+import logo from '@edx/brand/logo-white.svg';
 import { getConfig } from '@edx/frontend-platform';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import { Hyperlink, Image } from '@openedx/paragon';
@@ -11,11 +12,11 @@ const SmallLayout = () => {
   const { formatMessage } = useIntl();
 
   return (
-    <span className="bg-primary-400 w-100">
+    <span className="bg-primary w-100">
       <div className="col-md-12 small-screen-top-stripe" />
       <div>
         <Hyperlink destination={getConfig().MARKETING_SITE_BASE_URL}>
-          <Image className="logo-small" alt={getConfig().SITE_NAME} src={getConfig().LOGO_WHITE_URL} />
+          <Image className="logo-small" alt={getConfig().SITE_NAME} src={logo} />
         </Hyperlink>
         <div className="d-flex align-items-center m-3.5">
           <div className={classNames({ 'small-yellow-line mr-n2.5': getConfig().SITE_NAME === 'edX' })} />
@@ -26,7 +27,7 @@ const SmallLayout = () => {
           >
             <span>
               {formatMessage(messages['start.learning'])}{' '}
-              <span className="text-accent-a d-inline-block">
+              <span className="text-hdruk-green d-inline-block">
                 {formatMessage(messages['with.site.name'], { siteName: getConfig().SITE_NAME })}
               </span>
             </span>

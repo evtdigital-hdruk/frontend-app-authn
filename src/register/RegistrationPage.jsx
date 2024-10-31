@@ -246,7 +246,9 @@ const RegistrationPage = (props) => {
       queryParams);
 
     // making register call
-    dispatch(registerNewUser(payload));
+    if (submitState !== 'pending') {
+      dispatch(registerNewUser(payload));
+    }
   };
 
   const handleSubmit = (e) => {
@@ -370,6 +372,7 @@ const RegistrationPage = (props) => {
                   default: buttonLabel,
                   pending: '',
                 }}
+                disabledStates={['pending']}
                 onClick={handleSubmit}
                 onMouseDown={(e) => e.preventDefault()}
               />

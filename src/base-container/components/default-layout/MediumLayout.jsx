@@ -1,5 +1,6 @@
 import React from 'react';
 
+import logo from '@edx/brand/logo-white.svg';
 import { getConfig } from '@edx/frontend-platform';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import { Hyperlink, Image } from '@openedx/paragon';
@@ -14,9 +15,9 @@ const MediumLayout = () => {
     <>
       <div className="w-100 medium-screen-top-stripe" />
       <div className="w-100 p-0 mb-3 d-flex">
-        <div className="col-md-10 bg-primary-400">
+        <div className="col-md-10 bg-primary">
           <Hyperlink destination={getConfig().MARKETING_SITE_BASE_URL}>
-            <Image alt={getConfig().SITE_NAME} className="logo" src={getConfig().LOGO_WHITE_URL} />
+            <Image alt={getConfig().SITE_NAME} className="logo" src={logo} />
           </Hyperlink>
           <div className="d-flex align-items-center justify-content-center mb-4 ">
             <div className={classNames({ 'mt-1 medium-yellow-line': getConfig().SITE_NAME === 'edX' })} />
@@ -29,7 +30,7 @@ const MediumLayout = () => {
               >
                 <span>
                   {formatMessage(messages['start.learning'])}{' '}
-                  <span className="text-accent-a d-inline-block">
+                  <span className="text-hdruk-green d-inline-block">
                     {formatMessage(messages['with.site.name'], { siteName: getConfig().SITE_NAME })}
                   </span>
                 </span>

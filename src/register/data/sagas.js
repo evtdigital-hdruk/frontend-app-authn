@@ -15,8 +15,14 @@ import {
 import { INTERNAL_SERVER_ERROR } from './constants';
 import { getFieldsValidations, registerRequest } from './service';
 
+let registerRequestInProgress = false;
+
 export function* handleNewUserRegistration(action) {
   try {
+    if (registerRequestInProgress) {
+      return;
+    }
+    registerRequestInProgress = true;
     yield put(registerNewUserBegin());
 
     const { authenticatedUser, redirectUrl, success } = yield call(registerRequest, action.payload.registrationInfo);
@@ -35,6 +41,8 @@ export function* handleNewUserRegistration(action) {
       yield put(registerNewUserFailure({ errorCode: INTERNAL_SERVER_ERROR }));
       logError(e);
     }
+  } finally {
+    registerRequestInProgress = false;
   }
 }
 

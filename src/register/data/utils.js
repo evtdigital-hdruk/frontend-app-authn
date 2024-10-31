@@ -1,4 +1,4 @@
-import { snakeCaseObject } from '@edx/frontend-platform';
+import { getConfig, snakeCaseObject } from '@edx/frontend-platform';
 
 import { LETTER_REGEX, NUMBER_REGEX } from '../../data/constants';
 import messages from '../messages';
@@ -82,7 +82,6 @@ export const isFormValid = (
     fieldErrors.country = formatMessage(messages['invalid.country.field.error']);
     isValid = false;
   }
-
   Object.keys(fieldDescriptions).forEach(key => {
     if (key === 'country' && !configurableFormFields?.country?.displayValue) {
       fieldErrors[key] = formatMessage(messages['empty.country.field.error']);
