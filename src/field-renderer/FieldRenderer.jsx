@@ -173,7 +173,7 @@ const FormFieldRenderer = (props) => {
                         <Hyperlink
                           isInline
                           variant="muted"
-                          destination={`${getConfig().LMS_BASE_URL}/privacy`}
+                          destination={`${getConfig().MARKETING_SITE_BASE_URL}/privacy-policy`}
                           target="_blank"
                           showLaunchIcon={false}
                         >
