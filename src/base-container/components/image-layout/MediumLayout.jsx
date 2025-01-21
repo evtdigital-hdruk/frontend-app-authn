@@ -3,7 +3,7 @@ import React from 'react';
 import logo from '@edx/brand/logo-white.svg';
 import { getConfig } from '@edx/frontend-platform';
 import { useIntl } from '@edx/frontend-platform/i18n';
-import { Hyperlink, Image } from '@edx/paragon';
+import { Hyperlink, Image } from '@openedx/paragon';
 
 import './index.scss';
 import messages from './messages';

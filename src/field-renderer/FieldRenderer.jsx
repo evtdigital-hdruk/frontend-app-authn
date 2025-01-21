@@ -2,8 +2,8 @@ import React from 'react';
 
 import { getConfig } from '@edx/frontend-platform';
 import { useIntl } from '@edx/frontend-platform/i18n';
-import { Form, Hyperlink, Icon } from '@edx/paragon';
-import { ExpandMore } from '@edx/paragon/icons';
+import { Form, Hyperlink, Icon } from '@openedx/paragon';
+import { ExpandMore } from '@openedx/paragon/icons';
 import PropTypes from 'prop-types';
 
 import messages from './messages';
@@ -173,7 +173,7 @@ const FormFieldRenderer = (props) => {
                         <Hyperlink
                           isInline
                           variant="muted"
-                          destination={`${getConfig().LMS_BASE_URL}/privacy`}
+                          destination={`${getConfig().MARKETING_SITE_BASE_URL}/privacy-policy`}
                           target="_blank"
                           showLaunchIcon={false}
                         >

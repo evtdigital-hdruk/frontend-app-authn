@@ -14,9 +14,10 @@ import {
   Alert,
   Form,
   Hyperlink,
+  Spinner,
   StatefulButton,
-} from '@edx/paragon';
-import { Error } from '@edx/paragon/icons';
+} from '@openedx/paragon';
+import { Error } from '@openedx/paragon/icons';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { useLocation } from 'react-router-dom';
@@ -155,6 +156,7 @@ const ProgressiveProfiling = (props) => {
         isGenderSelected: !!values.gender,
         isYearOfBirthSelected: !!values.year_of_birth,
         isLevelOfEducationSelected: !!values.level_of_education,
+        isWorkExperienceSelected: !!values.work_experience,
         host: queryParams?.host || '',
       },
     );
@@ -214,7 +216,7 @@ const ProgressiveProfiling = (props) => {
   });
 
   return (
-    <BaseContainer showWelcomeBanner username={authenticatedUser?.username}>
+    <BaseContainer showWelcomeBanner fullName={authenticatedUser?.fullName || authenticatedUser?.name}>
       <Helmet>
         <title>{formatMessage(messages['progressive.profiling.page.title'],
           { siteName: getConfig().SITE_NAME })}
@@ -237,57 +239,63 @@ const ProgressiveProfiling = (props) => {
         />
       )}
       <div className="mw-xs m-4 pp-page-content">
-        <div>
-          <h2 className="pp-page__heading text-primary">{formatMessage(messages['progressive.profiling.page.heading'])}</h2>
-        </div>
-        <hr className="border-light-700 mb-4" />
-        {showError ? (
-          <Alert id="pp-page-errors" className="mb-3" variant="danger" icon={Error}>
-            <Alert.Heading>{formatMessage(messages['welcome.page.error.heading'])}</Alert.Heading>
-            <p>{formatMessage(messages['welcome.page.error.message'])}</p>
-          </Alert>
-        ) : null}
-        <Form>
-          {formFields}
-          {(getConfig().LMS_BASE_URL) && (
-            <span className="pp-page__support-link">
-              <Hyperlink
-                isInline
-                variant="muted"
-                destination={`${getConfig().LMS_BASE_URL}/tos`}
-                target="_blank"
-                showLaunchIcon={false}
-                onClick={() => (sendTrackEvent('edx.bi.welcome.page.support.link.clicked'))}
-              >
-                {formatMessage(messages['optional.fields.information.link'])}
-              </Hyperlink>
-            </span>
-          )}
-          <div className="d-flex mt-4 mb-3">
-            <StatefulButton
-              type="submit"
-              variant="brand"
-              className="pp-page__button-width"
-              state={submitState}
-              labels={{
-                default: showRecommendationsPage ? formatMessage(messages['optional.fields.next.button']) : formatMessage(messages['optional.fields.submit.button']),
-                pending: '',
-              }}
-              onClick={handleSubmit}
-              onMouseDown={(e) => e.preventDefault()}
-            />
-            <StatefulButton
-              className="text-gray-700 font-weight-500"
-              type="submit"
-              variant="link"
-              labels={{
-                default: formatMessage(messages['optional.fields.skip.button']),
-              }}
-              onClick={handleSkip}
-              onMouseDown={(e) => e.preventDefault()}
-            />
-          </div>
-        </Form>
+        {registrationEmbedded && welcomePageContextApiStatus === PENDING_STATE ? (
+          <Spinner animation="border" variant="primary" id="tpa-spinner" />
+        ) : (
+          <>
+            <div>
+              <h2 className="pp-page__heading text-primary">{formatMessage(messages['progressive.profiling.page.heading'])}</h2>
+            </div><hr className="border-light-700 mb-4" />
+            {showError ? (
+              <Alert id="pp-page-errors" className="mb-3" variant="danger" icon={Error}>
+                <Alert.Heading>{formatMessage(messages['welcome.page.error.heading'])}</Alert.Heading>
+                <p>{formatMessage(messages['welcome.page.error.message'])}</p>
+              </Alert>
+            ) : null}
+            <Form>
+              {formFields}
+              {(getConfig().AUTHN_PROGRESSIVE_PROFILING_SUPPORT_LINK) && (
+                <span className="pp-page__support-link">
+                  <Hyperlink
+                    isInline
+                    variant="muted"
+                    destination={getConfig().AUTHN_PROGRESSIVE_PROFILING_SUPPORT_LINK}
+                    target="_blank"
+                    showLaunchIcon={false}
+                    onClick={() => (sendTrackEvent('edx.bi.welcome.page.support.link.clicked'))}
+                  >
+                    {formatMessage(messages['optional.fields.information.link'])}
+                  </Hyperlink>
+                </span>
+              )}
+              <div className="d-flex mt-4 mb-3">
+                <StatefulButton
+                  type="submit"
+                  variant="brand"
+                  className="pp-page__button-width"
+                  state={submitState}
+                  labels={{
+                    default: showRecommendationsPage ? formatMessage(messages['optional.fields.next.button']) : formatMessage(messages['optional.fields.submit.button']),
+                    pending: '',
+                  }}
+                  onClick={handleSubmit}
+                  onMouseDown={(e) => e.preventDefault()}
+                />
+                <StatefulButton
+                  className="text-gray-700 font-weight-500"
+                  type="submit"
+                  variant="link"
+                  labels={{
+                    default: formatMessage(messages['optional.fields.skip.button']),
+                  }}
+                  onClick={handleSkip}
+                  onMouseDown={(e) => e.preventDefault()}
+                />
+              </div>
+            </Form>
+          </>
+        )}
+
       </div>
     </BaseContainer>
   );
@@ -297,6 +305,7 @@ ProgressiveProfiling.propTypes = {
   authenticatedUser: PropTypes.shape({
     username: PropTypes.string,
     userId: PropTypes.number,
+    fullName: PropTypes.string,
   }),
   showError: PropTypes.bool,
   shouldRedirect: PropTypes.bool,

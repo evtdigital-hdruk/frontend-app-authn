@@ -3,12 +3,12 @@ import React from 'react';
 import logo from '@edx/brand/logo.svg';
 import { getConfig } from '@edx/frontend-platform';
 import { useIntl } from '@edx/frontend-platform/i18n';
-import { Hyperlink, Image } from '@edx/paragon';
+import { Hyperlink, Image } from '@openedx/paragon';
 import PropTypes from 'prop-types';
 
 import messages from './messages';
 
-const SmallLayout = ({ username }) => {
+const SmallLayout = ({ fullName }) => {
   const { formatMessage } = useIntl();
 
   return (
@@ -21,7 +21,7 @@ const SmallLayout = ({ username }) => {
         <div className="small-yellow-line mt-4.5" />
         <div>
           <h1 className="h5 data-hj-suppress">
-            {formatMessage(messages['welcome.to.platform'], { siteName: getConfig().SITE_NAME, username })}
+            {formatMessage(messages['welcome.to.platform'], { siteName: getConfig().SITE_NAME, fullName })}
           </h1>
           <h2 className="h1">
             {formatMessage(messages['complete.your.profile.1'])}
@@ -36,7 +36,7 @@ const SmallLayout = ({ username }) => {
 };
 
 SmallLayout.propTypes = {
-  username: PropTypes.string.isRequired,
+  fullName: PropTypes.string.isRequired,
 };
 
 export default SmallLayout;

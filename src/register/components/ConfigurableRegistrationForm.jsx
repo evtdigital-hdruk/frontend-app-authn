@@ -33,7 +33,11 @@ const ConfigurableRegistrationForm = (props) => {
     autoSubmitRegistrationForm,
   } = props;
 
-  const countryList = useMemo(() => getCountryList(getLocale()), []);
+  /** The reason for adding the entry 'United States' is that Chrome browser aut-fill the form with the 'Unites
+  States' instead of 'United States of America' which does not exist in country dropdown list and gets the user
+  confused and unable to create an account. So we added the United States entry in the dropdown list.
+ */
+  const countryList = useMemo(() => getCountryList(getLocale()).concat([{ code: 'US', name: 'United States' }]), []);
 
   let showTermsOfServiceAndHonorCode = false;
   let showCountryField = false;
@@ -45,12 +49,6 @@ const ConfigurableRegistrationForm = (props) => {
     showConfigurableEdxFields: getConfig().SHOW_CONFIGURABLE_EDX_FIELDS,
     showMarketingEmailOptInCheckbox: getConfig().MARKETING_EMAILS_OPT_IN,
   };
-
-  useEffect(() => {
-    if (!formFields.country) {
-      setFormFields(prevState => ({ ...prevState, country: { countryCode: '', displayValue: '' } }));
-    }
-  });
 
   /**
    * If auto submitting register form, we will check tos and honor code fields if they exist for feature parity.

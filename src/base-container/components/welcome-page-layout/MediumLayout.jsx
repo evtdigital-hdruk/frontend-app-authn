@@ -3,12 +3,12 @@ import React from 'react';
 import logo from '@edx/brand/logo.svg';
 import { getConfig } from '@edx/frontend-platform';
 import { useIntl } from '@edx/frontend-platform/i18n';
-import { Hyperlink, Image } from '@edx/paragon';
+import { Hyperlink, Image } from '@openedx/paragon';
 import PropTypes from 'prop-types';
 
 import messages from './messages';
 
-const MediumLayout = ({ username }) => {
+const MediumLayout = ({ fullName }) => {
   const { formatMessage } = useIntl();
 
   return (
@@ -23,7 +23,7 @@ const MediumLayout = ({ username }) => {
             <div className="medium-yellow-line mt-5 mr-n2" />
             <div>
               <h1 className="h3 data-hj-suppress mw-320">
-                {formatMessage(messages['welcome.to.platform'], { siteName: getConfig().SITE_NAME, username })}
+                {formatMessage(messages['welcome.to.platform'], { siteName: getConfig().SITE_NAME, fullName })}
               </h1>
               <h2 className="display-1">
                 {formatMessage(messages['complete.your.profile.1'])}
@@ -47,7 +47,7 @@ const MediumLayout = ({ username }) => {
 };
 
 MediumLayout.propTypes = {
-  username: PropTypes.string.isRequired,
+  fullName: PropTypes.string.isRequired,
 };
 
 export default MediumLayout;

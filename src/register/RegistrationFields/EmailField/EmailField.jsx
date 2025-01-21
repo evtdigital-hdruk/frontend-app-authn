@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useIntl } from '@edx/frontend-platform/i18n';
-import { Alert, Icon } from '@edx/paragon';
-import { Close, Error } from '@edx/paragon/icons';
+import { Alert, Icon } from '@openedx/paragon';
+import { Close, Error } from '@openedx/paragon/icons';
 import PropTypes from 'prop-types';
 
 import validateEmail from './validator';
@@ -37,10 +37,8 @@ const EmailField = (props) => {
     confirmEmailValue,
   } = props;
 
-  const {
-    registrationFormData: backedUpFormData,
-    validationApiRateLimited,
-  } = useSelector(state => state.register);
+  const backedUpFormData = useSelector(state => state.register.registrationFormData);
+  const validationApiRateLimited = useSelector(state => state.register.validationApiRateLimited);
 
   const [emailSuggestion, setEmailSuggestion] = useState({ ...backedUpFormData?.emailSuggestion });
 

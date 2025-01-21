@@ -50,7 +50,7 @@ const reducer = (state = defaultState, action = {}) => {
       };
     case BACKUP_REGISTRATION_DATA.BEGIN:
       return {
-        ...defaultState,
+        ...state,
         usernameSuggestions: state.usernameSuggestions,
         registrationFormData: { ...action.payload },
         userPipelineDataLoaded: state.userPipelineDataLoaded,
@@ -122,7 +122,7 @@ const reducer = (state = defaultState, action = {}) => {
         userPipelineDataLoaded: value,
       };
     }
-    case REGISTER_SET_EMAIL_SUGGESTIONS: {
+    case REGISTER_SET_EMAIL_SUGGESTIONS:
       return {
         ...state,
         registrationFormData: {
@@ -130,7 +130,6 @@ const reducer = (state = defaultState, action = {}) => {
           emailSuggestion: action.payload.emailSuggestion,
         },
       };
-    }
     default:
       return {
         ...state,

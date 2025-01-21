@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useIntl } from '@edx/frontend-platform/i18n';
-import { Button, Icon, IconButton } from '@edx/paragon';
-import { Close } from '@edx/paragon/icons';
+import { Button, Icon, IconButton } from '@openedx/paragon';
+import { Close } from '@openedx/paragon/icons';
 import PropTypes from 'prop-types';
 
 import validateUsername from './validator';
@@ -41,7 +41,8 @@ const UsernameField = (props) => {
   let className = '';
   let suggestedUsernameDiv = null;
   let iconButton = null;
-  const { usernameSuggestions, validationApiRateLimited } = useSelector(state => state.register);
+  const usernameSuggestions = useSelector(state => state.register.usernameSuggestions);
+  const validationApiRateLimited = useSelector(state => state.register.validationApiRateLimited);
 
   /**
    * We need to remove the placeholder from the field, adding a space will do that.

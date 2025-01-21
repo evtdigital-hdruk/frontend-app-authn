@@ -64,22 +64,12 @@ const messages = defineMessages({
     defaultMessage: 'Create an account for free',
     description: 'Label text for registration form submission button',
   },
-  'registration.other.options.heading': {
-    id: 'registration.other.options.heading',
-    defaultMessage: 'Or register with:',
-    description: 'A message that appears above third party auth providers i.e saml, google, facebook etc',
-  },
   'create.account.cta.button': {
     id: 'create.account.cta.button',
     defaultMessage: '{label}',
     description: 'Label text for registration form submission button for those users who are landing through redirections',
   },
   // Institution login
-  'register.institution.login.button': {
-    id: 'register.institution.login.button',
-    defaultMessage: 'Institution/campus credentials',
-    description: 'shows institutions list',
-  },
   'register.institution.login.page.title': {
     id: 'register.institution.login.page.title',
     defaultMessage: 'Register with institution/campus credentials',
@@ -110,6 +100,11 @@ const messages = defineMessages({
     id: 'empty.country.field.error',
     defaultMessage: 'Select your country or region of residence',
     description: 'Error message when no country/region is selected',
+  },
+  'invalid.country.field.error': {
+    id: 'invalid.country.field.error',
+    defaultMessage: 'Country must match with an option available in the dropdown.',
+    description: 'Error message when country is invalid',
   },
   'email.do.not.match': {
     id: 'email.do.not.match',
