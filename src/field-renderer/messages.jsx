@@ -17,7 +17,7 @@ const messages = defineMessages({
   marketingPrivacyPolicyLink: {
     id: 'marketingPreferences.marketingPrivacyPolicyLink',
     description: 'Privacy Policy',
-    defaultMessage: 'Privacy Poicy',
+    defaultMessage: 'Privacy Policy',
   },
 });
 
