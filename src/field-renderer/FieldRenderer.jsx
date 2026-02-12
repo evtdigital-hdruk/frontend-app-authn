@@ -121,6 +121,66 @@ const FormFieldRenderer = (props) => {
       );
       break;
     }
+    case 'multiplechoice': {
+      const selectedValues = Array.isArray(value) ? value : [];
+      const handleMultiChange = (e) => {
+        const updated = e.target.checked
+          ? [...selectedValues, e.target.value]
+          : selectedValues.filter(v => v !== e.target.value);
+        onChangeHandler({ target: { name: fieldData.name, value: updated } });
+      };
+      const renderFooter = () => {
+        if (!fieldData.footer) { return null; }
+        const links = fieldData.footer_links || {};
+        const parts = fieldData.footer.split(/\{(\w+)\}/g);
+        return (
+          <p className="mt-2 x-small">
+            {parts.map((part, i) => {
+              if (i % 2 === 1 && links[part]) {
+                return <a key={part} href={links[part].url} target="_blank" rel="noopener noreferrer">{links[part].text}</a>;
+              }
+              return part;
+            })}
+          </p>
+        );
+      };
+      formField = (
+        <Form.Group isInvalid={!!(isRequired && errorMessage)}>
+          {fieldData.label && (
+            <Form.Label className="h4 text-primary">{fieldData.label}</Form.Label>
+          )}
+          {fieldData.description && (
+            <p className="mb-2">{fieldData.description}</p>
+          )}
+          <Form.CheckboxSet
+            name={fieldData.name}
+            onChange={handleMultiChange}
+            value={selectedValues}
+            aria-invalid={isRequired && Boolean(errorMessage)}
+            onBlur={handleOnBlur}
+            onFocus={handleFocus}
+          >
+            {fieldData.options.map(option => (
+              <Form.Checkbox
+                key={option[0]}
+                className={className}
+                id={option[0]}
+                value={option[0]}
+              >
+                {option[1]}
+              </Form.Checkbox>
+            ))}
+          </Form.CheckboxSet>
+          {isRequired && errorMessage && (
+            <Form.Control.Feedback id={`${fieldData.name}-error`} type="invalid" className="form-text-size" hasIcon={false}>
+              {errorMessage}
+            </Form.Control.Feedback>
+          )}
+          {renderFooter()}
+        </Form.Group>
+      );
+      break;
+    }
     default:
       break;
   }
@@ -142,6 +202,12 @@ FormFieldRenderer.propTypes = {
     type: PropTypes.string,
     label: PropTypes.string,
     name: PropTypes.string,
+    description: PropTypes.string,
+    footer: PropTypes.string,
+    footer_links: PropTypes.objectOf(PropTypes.shape({
+      url: PropTypes.string,
+      text: PropTypes.string,
+    })),
     options: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
   }).isRequired,
   onChangeHandler: PropTypes.func.isRequired,
@@ -152,6 +218,7 @@ FormFieldRenderer.propTypes = {
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.bool,
+    PropTypes.arrayOf(PropTypes.string),
   ]),
 };
 
