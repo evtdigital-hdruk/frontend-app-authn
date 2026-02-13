@@ -1,7 +1,7 @@
 import { camelCaseObject } from '@edx/frontend-platform';
 import { logError, logInfo } from '@edx/frontend-platform/logging';
 import {
-  call, put, race, take, takeEvery,
+  call, put, race, take, takeEvery, takeLeading,
 } from 'redux-saga/effects';
 
 import {
@@ -63,6 +63,6 @@ export function* fetchRealtimeValidations(action) {
   }
 }
 export default function* saga() {
-  yield takeEvery(REGISTER_NEW_USER.BASE, handleNewUserRegistration);
+  yield takeLeading(REGISTER_NEW_USER.BASE, handleNewUserRegistration);
   yield takeEvery(REGISTER_FORM_VALIDATIONS.BASE, fetchRealtimeValidations);
 }
