@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { connect } from 'react-redux';
 
 import { getConfig, snakeCaseObject } from '@edx/frontend-platform';
@@ -8,7 +8,7 @@ import {
   configure as configureAuth,
   getAuthenticatedUser,
 } from '@edx/frontend-platform/auth';
-import { useIntl } from '@edx/frontend-platform/i18n';
+import { getCountryList, getLocale, useIntl } from '@edx/frontend-platform/i18n';
 import { getLoggingService } from '@edx/frontend-platform/logging';
 import {
   Alert,
@@ -39,6 +39,7 @@ import {
 import isOneTrustFunctionalCookieEnabled from '../data/oneTrust';
 import { getAllPossibleQueryParams, isHostAvailableInQueryParams } from '../data/utils';
 import { FormFieldRenderer } from '../field-renderer';
+import { CountryField } from '../register/RegistrationFields';
 
 const ProgressiveProfiling = (props) => {
   const { formatMessage } = useIntl();
@@ -57,6 +58,11 @@ const ProgressiveProfiling = (props) => {
   const functionalCookiesConsent = isOneTrustFunctionalCookieEnabled();
   const enablePostRegistrationRecommendations = (
     getConfig().ENABLE_POST_REGISTRATION_RECOMMENDATIONS && functionalCookiesConsent
+  );
+
+  const countryList = useMemo(
+    () => getCountryList(getLocale()).concat([{ code: 'US', name: 'United States' }]),
+    [],
   );
 
   const [registrationResult, setRegistrationResult] = useState({ redirectUrl: '' });
@@ -140,6 +146,9 @@ const ProgressiveProfiling = (props) => {
     e.preventDefault();
     window.history.replaceState(location.state, null, '');
     const payload = { ...values, extendedProfile: [] };
+    if (payload.country && typeof payload.country === 'object') {
+      payload.country = payload.country.countryCode;
+    }
     if (Object.keys(formFieldData.extendedProfile).length > 0) {
       formFieldData.extendedProfile.forEach(fieldName => {
         if (values[fieldName]) {
@@ -184,6 +193,22 @@ const ProgressiveProfiling = (props) => {
 
   const formFields = Object.keys(formFieldData.fields).map((fieldName) => {
     const fieldData = formFieldData.fields[fieldName];
+    if (fieldData.name === 'country') {
+      return (
+        <span key={fieldData.name}>
+          <CountryField
+            countryList={countryList}
+            selectedCountry={values.country || { displayValue: '', countryCode: '' }}
+            errorMessage=""
+            onChangeHandler={(_, countryValue) => {
+              setValues(prev => ({ ...prev, country: countryValue }));
+            }}
+            handleErrorChange={() => {}}
+            onFocusHandler={() => {}}
+          />
+        </span>
+      );
+    }
     return (
       <span key={fieldData.name}>
         <FormFieldRenderer
