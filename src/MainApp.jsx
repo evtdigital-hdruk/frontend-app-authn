@@ -26,7 +26,7 @@ import { ProgressiveProfiling } from './progressive-profiling';
 import { RecommendationsPage } from './recommendations';
 import { RegistrationPage } from './register';
 import { ResetPasswordPage } from './reset-password';
-import { ConsentManager } from './utils/externalScripts';
+import ConsentManager from './utils/externalScripts';
 
 import './index.scss';
 
