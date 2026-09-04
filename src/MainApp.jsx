@@ -32,8 +32,16 @@ import './index.scss';
 
 registerIcons();
 
+// Create the store once at module scope. Creating it inside the render
+// body re-ran `sagaMiddleware.run(rootSaga)` on the module-singleton
+// middleware every time React invoked MainApp (twice under StrictMode's
+// dev double-render, more on re-renders), so every dispatched action was
+// handled by several live copies of each saga watcher - duplicate
+// login/register POSTs that trip the LMS rate limiter.
+const store = configureStore();
+
 const MainApp = () => (
-  <AppProvider store={configureStore()}>
+  <AppProvider store={store}>
     <Helmet>
       <link rel="shortcut icon" href={getConfig().FAVICON_URL} type="image/x-icon" />
     </Helmet>

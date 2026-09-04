@@ -38,6 +38,38 @@ describe('FieldRendererTests', () => {
     expect(value).toEqual('1997');
   });
 
+  it('should render a blank placeholder option showing a single dash (not the label) for select fields', () => {
+    const fieldData = {
+      type: 'select',
+      label: 'Year of Birth',
+      name: 'yob-field',
+      options: [['1997', '1997'], ['1998', '1998']],
+    };
+
+    const { container } = render(<FieldRenderer value={value} fieldData={fieldData} onChangeHandler={changeHandler} />);
+    const placeholderOption = container.querySelector('select#yob-field option[value=""]');
+
+    expect(placeholderOption).toBeTruthy();
+    expect(placeholderOption.textContent).toEqual('-');
+    expect(placeholderOption.textContent).not.toEqual(fieldData.label);
+  });
+
+  it('should render checkbox inputs for a multiplechoice field', () => {
+    const fieldData = {
+      type: 'multiplechoice',
+      label: 'Marketing preferences',
+      name: 'marketing_preferences',
+      options: [['email', 'Email'], ['sms', 'SMS']],
+    };
+
+    const { container } = render(<FieldRenderer value={[]} fieldData={fieldData} onChangeHandler={changeHandler} />);
+    const checkboxes = container.querySelectorAll('input[type="checkbox"]');
+
+    expect(checkboxes).toHaveLength(2);
+    expect(container.querySelector('input#email')).toBeTruthy();
+    expect(container.querySelector('input#sms')).toBeTruthy();
+  });
+
   it('should return null if no options are provided for select field', () => {
     const fieldData = {
       type: 'select',
